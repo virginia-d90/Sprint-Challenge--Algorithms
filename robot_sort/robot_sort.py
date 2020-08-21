@@ -96,8 +96,48 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+       #it seems like the purpose of the light is to determine a true state
+       #probably implement a bubble sort
+       #pick up first item in list
+       #move to right 1 and compare item
+       #if new item is larger swap items
+
+        #set state as True by turning on light
+        self.set_light_on()
+
+        #start a loop to begin sorting
+        while self.light_is_on():
+            
+            #create an escape from the loop. If nothing is swapped state will switch to false
+            self.set_light_off()
+
+            while self.can_move_right():
+                #Pick up an inital item(swap item in future iterations)
+                #Assuming swap must be used to start since there is no other pick up method
+                self.swap_item()
+
+                #Now that an item has been picked up move to the right
+                self.move_right()
+                #Compare the next item in the list with the one being held
+                #if the item being held is larger that the item being compared swap the item
+                    #compare_item will return 1 if this is true
+                if self.compare_item() == 1:
+
+                    self.swap_item()
+                #Turn the light back on to implement the True state so the loop will continue
+                    self.set_light_on()
+                #now robot needs to move left
+                    #either to return the original item if no swap is made
+                    #or to place the new 'smallest item' in its correct place
+
+                self.move_left()
+                self.swap_item()
+
+                self.move_right()
+            #once the robot goes all the way to the right it should go all the way to the left to start the process over
+            while self.can_move_left():
+                self.move_left()
+                
 
 
 if __name__ == "__main__":
